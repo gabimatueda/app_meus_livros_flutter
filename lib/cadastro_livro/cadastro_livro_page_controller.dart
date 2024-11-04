@@ -27,6 +27,16 @@ abstract class _CadastroLivroPageController with Store {
   String genero = '';
   TextEditingController generoController = TextEditingController();
 
+ // ObservableList<String> listaGeneroSelecionado = ObservableList();
+
+  List<String> listaGenero = [
+    'Fantasia',
+    'Romance',
+    'Didático',
+    'Fiçção',
+    'Biografia',  
+    ];
+
   @action
   void setTitulo(String valor) {
     if (valor == '') {

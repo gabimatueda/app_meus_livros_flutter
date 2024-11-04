@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/cadastro_livro/cadastro_livro_page_controller.dart';
 import 'package:flutter_application_1/widgets/app_loading_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:gc_comp/gc_button.dart';
 import 'package:gc_comp/gc_text_form_field.dart';
 
 class CadastroLivroPage extends StatefulWidget {
@@ -42,8 +44,13 @@ class _CadastroLivroPageState extends State<CadastroLivroPage> {
           child: Form(
             key: _formKey,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
+                const Icon(
+                  Icons.menu_book,
+                  size: 50,
+                  color: Colors.blueGrey),
                 const Center(
                   child: Text(
                     'Cadastro de Livros',
@@ -54,38 +61,61 @@ class _CadastroLivroPageState extends State<CadastroLivroPage> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                GcTextFormField(
-                  'Titulo',
-                  controller: _controller.tituloController,
-                  onChanged: (s) => _controller.tituloController,
-                  onLeave: (currentValue) => _controller.onLeaveTitulo(),
-                  validator: (value) => _controller.erroTitulo(value),
+                SizedBox(
+                  width: 300,
+                  child: GcTextFormField(
+                    'Titulo',
+                    controller: _controller.tituloController,
+                    onChanged: (s) => _controller.tituloController,
+                    onLeave: (currentValue) => _controller.onLeaveTitulo(),
+                    validator: (value) => _controller.erroTitulo(value),
+                  ),
                 ),
-                const SizedBox(height: 8),
-                GcTextFormField(
-                  'Autor',
-                  controller: _controller.autorController,
-                  onChanged: (s) => _controller.autorController,
-                  onLeave: (currentValue) => _controller.onLeaveAutor(),
-                  validator: (value) => _controller.erroAutor(value),
+                const SizedBox(height: 14),
+                SizedBox(
+                  width: 300,
+                  child: GcTextFormField(
+                    'Autor',
+                    controller: _controller.autorController,
+                    onChanged: (s) => _controller.autorController,
+                    onLeave: (currentValue) => _controller.onLeaveAutor(),
+                    validator: (value) => _controller.erroAutor(value),
+                  ),
                 ),
-                const SizedBox(height: 8),
-                GcTextFormField(
-                  'Ano de Publicação',
-                  controller: _controller.anoPublicacaoController,
-                  onChanged: (s) => _controller.anoPublicacaoController,
-                  onLeave: (currentValue) => _controller.onLeaveAnoPublicacao(),
-                  validator: (value) => _controller.erroAnoPublicacao(value),
+                const SizedBox(height: 14),
+                SizedBox(
+                  width: 300,
+                  child: GcTextFormField(
+                    'Ano de Publicação',
+                    controller: _controller.anoPublicacaoController,
+                    onChanged: (s) => _controller.anoPublicacaoController,
+                    onLeave: (currentValue) =>
+                        _controller.onLeaveAnoPublicacao(),
+                    validator: (value) => _controller.erroAnoPublicacao(value),
+                    formatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 8),
-                GcTextFormField(
-                  'Gênero',
-                  controller: _controller.generoController,
-                  onChanged: (s) => _controller.generoController,
-                  onLeave: (currentValue) => _controller.onLeaveGenero(),
-                  validator: (value) => _controller.erroGenero(value),
+                const SizedBox(height: 14),
+                SizedBox(
+                  width: 300,
+                  child: GcTextFormField(
+                    'Gênero',
+                    controller: _controller.generoController,
+                    onChanged: (s) => _controller.generoController,
+                    onLeave: (currentValue) => _controller.onLeaveGenero(),
+                    validator: (value) => _controller.erroGenero(value),
+                  ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 14),
+                Center(
+                  child: GcButton('Salvar', () async {
+                    if (_formKey.currentState != null) {
+                      if (_formKey.currentState!.validate()) {}
+                    }
+                  }),
+                ),
               ],
             ),
           ),
