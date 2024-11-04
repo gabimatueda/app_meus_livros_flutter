@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_application_1/cadastro_livro/cadastro_livro_page_controller.dart';
 import 'package:flutter_application_1/widgets/app_loading_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-//import 'package:flutter_application_1/widgets/custom_appbar.dart';
 import 'package:gc_comp/gc_text_form_field.dart';
 
 class CadastroLivroPage extends StatefulWidget {
@@ -35,13 +33,13 @@ class _CadastroLivroPageState extends State<CadastroLivroPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+       // backgroundColor: const Colors.blue,
         title: const Text('Cadastro de Livros'),
       ),
       body: Observer(
         builder: (ctx) => Visibility(
           replacement: const AppLoadingWidget(),
           visible: !_controller.carregando,
-         //  maxWidth: MediaQuery.of(context).size.width * 0.3,
             child: Form(
                 key: _formKey,
                 child: const Column(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-part 'controller/cadastro_livro_page_controller.g.dart';
+part 'cadastro_livro_page_controller.g.dart';
 
 class CadastroLivroPageController = _CadastroLivroPageController
     with _$CadastroLivroPageController;
