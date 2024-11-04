@@ -33,91 +33,63 @@ class _CadastroLivroPageState extends State<CadastroLivroPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-       // backgroundColor: const Colors.blue,
-        title: const Text('Cadastro de Livros'),
-      ),
+          //  title: const Text('Cadastro de Livros'),
+          ),
       body: Observer(
         builder: (ctx) => Visibility(
           replacement: const AppLoadingWidget(),
           visible: !_controller.carregando,
-            child: Form(
-                key: _formKey,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Text(
-                        'Cadastro de Livros',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Center(
+                  child: Text(
+                    'Cadastro de Livros',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(height: 16),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 15),
-                            child: GcTextFormField(
-                              'Titulo',
-                              controller: _controller.tituloController,
-                              onChanged: (s) => _controller.tituloController,
-                              onLeave: (currentValue) =>
-                                  _controller.onLeaveTitulo(),
-                              validator: (value) =>
-                                  _controller.erroTitulo(value),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 15),
-                            child: GcTextFormField(
-                              'Autor',
-                              controller: _controller.autorController,
-                              onChanged: (s) => _controller.autorController,
-                              onLeave: (currentValue) =>
-                                  _controller.onLeaveAutor(),
-                              validator: (value) =>
-                                  _controller.erroAutor(value),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 15),
-                            child: GcTextFormField(
-                              'Ano de Publicação',
-                              controller: _controller.anoPublicacaoController,
-                              onChanged: (s) =>
-                                  _controller.anoPublicacaoController,
-                              onLeave: (currentValue) =>
-                                  _controller.onLeaveAnoPublicacao(),
-                              validator: (value) =>
-                                  _controller.erroAnoPublicacao(value),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 15),
-                            child: GcTextFormField(
-                              'Gênero',
-                              controller: _controller.generoController,
-                              onChanged: (s) => _controller.generoController,
-                              onLeave: (currentValue) =>
-                                  _controller.onLeaveGenero(),
-                              validator: (value) =>
-                                  _controller.erroGenero(value),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ))),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                GcTextFormField(
+                  'Titulo',
+                  controller: _controller.tituloController,
+                  onChanged: (s) => _controller.tituloController,
+                  onLeave: (currentValue) => _controller.onLeaveTitulo(),
+                  validator: (value) => _controller.erroTitulo(value),
+                ),
+                const SizedBox(height: 8),
+                GcTextFormField(
+                  'Autor',
+                  controller: _controller.autorController,
+                  onChanged: (s) => _controller.autorController,
+                  onLeave: (currentValue) => _controller.onLeaveAutor(),
+                  validator: (value) => _controller.erroAutor(value),
+                ),
+                const SizedBox(height: 8),
+                GcTextFormField(
+                  'Ano de Publicação',
+                  controller: _controller.anoPublicacaoController,
+                  onChanged: (s) => _controller.anoPublicacaoController,
+                  onLeave: (currentValue) => _controller.onLeaveAnoPublicacao(),
+                  validator: (value) => _controller.erroAnoPublicacao(value),
+                ),
+                const SizedBox(height: 8),
+                GcTextFormField(
+                  'Gênero',
+                  controller: _controller.generoController,
+                  onChanged: (s) => _controller.generoController,
+                  onLeave: (currentValue) => _controller.onLeaveGenero(),
+                  validator: (value) => _controller.erroGenero(value),
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
