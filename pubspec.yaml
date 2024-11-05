@@ -33,17 +33,12 @@ dependencies:
   mobx: ^2.2.0
   flutter_mobx: ^2.0.6+5
   flutter_modular: ^6.3.2
-  gc_comp:
-    git:
-      url: https://github.com/gecontrolsistemas/GcComponents
-  gc_libs:
-    git:
-      url: https://github.com/gecontrolsistemas/GcLibs
   http: ^1.1.0
   one_context: ^4.0.0
   uuid: ^3.0.7
   json_annotation: ^4.8.1
   mask_text_input_formatter: ^2.9.0
+  sqflite: ^2.3.3+1
 
 
   # The following adds the Cupertino Icons font to your application.
