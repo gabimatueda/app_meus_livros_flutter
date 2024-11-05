@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/core/entities/livro.dart';
+import 'package:flutter_application_1/meus_livros/core/entities/livro.dart';
 
 abstract class ILivroDAO {
   Future<void> save(Livro entity);

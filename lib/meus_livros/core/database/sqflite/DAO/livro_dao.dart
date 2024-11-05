@@ -1,11 +1,13 @@
 // import 'package:flutter_application_1/core/database/sqflite/DAO/livro_dao.dart';
 // import 'package:flutter_application_1/core/database/interfaces/DAO/ilivros_dao.dart';
+// import 'package:flutter_application_1/core/entities/livro.dart';
+// import 'package:sqflite/sqflite.dart';
 
-// class LivroDao implements ILivroDAO {
+// class LivroDAO implements ILivroDAO {
 //   final Database _db;
 //   static String tableName = 'livro';
 
-//   LivroDao(this._db);
+//   LivroDAO(this._db);
 
 //   @override
 //   Future<void> insertList(List<Livro> listLivro) async {
@@ -79,11 +81,11 @@
 //   }
 
 //   @override
-//   Future<void> delete(Livro entity) async {
+//   Future<void> delete(Livro livro) async {
 //     await _db.delete(
 //       tableName,
 //       where: 'id = ?',
-//       whereArgs: [entity.id],
+//       whereArgs: [livro.id],
 //     );
 //   }
 
@@ -91,7 +93,10 @@
 //   String get createLivroTable => '''
 //     CREATE TABLE IF NOT EXISTS $tableName (
 //       id INTEGER PRIMARY KEY NOT NULL,
-//       desc_tipologia TEXT NOT NULL
+//       titulo TEXT NOT NULL,
+//       autor TEXT NOT NULL,
+//       anoPublicacao INTEGER,
+//       genero TEXT
 //     );
 //   ''';
 
