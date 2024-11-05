@@ -7,7 +7,7 @@ abstract class ILivroDAO {
 
   Future<List<Livro>> selectMany();
 
-  Future<Livro?> selectOne(int idTipologia);
+  Future<Livro?> selectOne(int idLivro);
 
   Future<void> insertList(List<Livro> listaLivro);
 

@@ -1,7 +1,8 @@
+// import 'package:flutter_application_1/core/database/interfaces/DAO/ilivros_dao.dart';
 // import 'package:flutter_application_1/core/database/sqflite/DAO/livro_dao.dart';
-// import 'package:sqflite/sqflite.dart';
+// import 'package:flutter_application_1/core/database/interfaces/idata_base_livros.dart';
 
-// class SqfliteDataBaseLivros implements IDataBaseLivro {
+// class SqfliteDataBaseLivros implements IDataBaseLivros {
 //   static final SqfliteDataBaseLivros _instance =
 //       SqfliteDataBaseLivros._internal();
 //   late Database _db;
@@ -17,5 +18,5 @@
 //   }
 
 //   @override
-//   ILivrosDAO get livro => LivroDAO(_db);
+//   ILivroDAO get livro => LivroDAO(_db);
 // }
