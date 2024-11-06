@@ -1,107 +1,116 @@
-// import 'package:flutter_application_1/core/database/sqflite/DAO/livro_dao.dart';
-// import 'package:flutter_application_1/core/database/interfaces/DAO/ilivros_dao.dart';
-// import 'package:flutter_application_1/core/entities/livro.dart';
-// import 'package:sqflite/sqflite.dart';
+import 'package:flutter_application_1/meus_livros/core/database/interfaces/DAO/ilivros_dao.dart';
+import 'package:flutter_application_1/meus_livros/core/entities/livro.dart';
+import 'package:sqflite/sqflite.dart';
 
-// class LivroDAO implements ILivroDAO {
-//   final Database _db;
-//   static String tableName = 'livro';
+class LivroDAO implements ILivroDAO {
+  final Database _db;
+  static String tableName = 'livros';
 
-//   LivroDAO(this._db);
+  LivroDAO(this._db);
 
-//   @override
-//   Future<void> insertList(List<Livro> listLivro) async {
-//     await _db.transaction((t) async {
-//       for (var livro in listLivro) {
-//         var ret = await t.query(
-//           tableName,
-//           where: 'id = ?',
-//           whereArgs: [livro.id],
-//         );
+  @override
+  Future<void> insertList(List<Livro> listLivro) async {
+    await _db.transaction((t) async {
+      for (var livro in listLivro) {
+        var ret = await t.query(
+          tableName,
+          where: 'id = ?',
+          whereArgs: [livro.id],
+        );
 
-//         var map = livro.toMap();
+        var map = livro.toMap();
 
-//         if (ret.isNotEmpty) {
-//           await t.update(
-//             tableName,
-//             map,
-//             where: 'id = ?',
-//             whereArgs: [livro.id],
-//           );
-//         } else {
-//           await t.insert(
-//             tableName,
-//             map,
-//             conflictAlgorithm: ConflictAlgorithm.ignore,
-//           );
-//         }
-//       }
-//     });
-//   }
+        if (ret.isNotEmpty) {
+          await t.update(
+            tableName,
+            map,
+            where: 'id = ?',
+            whereArgs: [livro.id],
+          );
+        } else {
+          await t.insert(
+            tableName,
+            map,
+            conflictAlgorithm: ConflictAlgorithm.ignore,
+          );
+        }
+      }
+    });
+  }
 
-//   @override
-//   Future<void> save(Livro livro) async {
-//     var ret = await selectOne(livro.id);
+  @override
+  Future<void> save(Livro livro) async {
+    var ret = await selectOne(livro.id!);
 
-//     if (ret != null) {
-//       await _db.update(
-//         tableName,
-//         livro.toMap(),
-//         where: 'id = ?',
-//         whereArgs: [livro.id],
-//       );
-//     } else {
-//       await _db.insert(
-//         tableName,
-//         livro.toMap(),
-//         conflictAlgorithm: ConflictAlgorithm.replace,
-//       );
-//     }
-//   }
+    if (ret != null) {
+      await _db.update(
+        tableName,
+        livro.toMap(),
+        where: 'id = ?',
+        whereArgs: [livro.id],
+      );
+    } else {
+      await _db.insert(
+        tableName,
+        livro.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
+    }
+  }
 
-//   @override
-//   Future<List<Livro>> selectMany() async {
-//     List<Map<String, dynamic>> result = await _db.query(
-//       tableName,
-//     );
+  @override
+  Future<List<Livro>> selectMany() async {
+    List<Map<String, dynamic>> result = await _db.query(
+      tableName,
+    );
 
-//     return result.map((data) => Livro.fromMap(data)).toList();
-//   }
+    return result.map((data) => Livro.fromMap(data)).toList();
+  }
 
-//   @override
-//   Future<Livro?> selectOne(int idLivro) async {
-//     List<Map<String, dynamic>> result = await _db.query(
-//       tableName,
-//       where: 'id = ?',
-//       whereArgs: [idLivro],
-//       limit: 1,
-//     );
+  @override
+  Future<Livro?> selectOne(int idLivro) async {
+    List<Map<String, dynamic>> result = await _db.query(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [idLivro],
+      limit: 1,
+    );
 
-//     return result.isNotEmpty ? Livro.fromMap(result.first) : null;
-//   }
+    return result.isNotEmpty ? Livro.fromMap(result.first) : null;
+  }
 
-//   @override
-//   Future<void> delete(Livro livro) async {
-//     await _db.delete(
-//       tableName,
-//       where: 'id = ?',
-//       whereArgs: [livro.id],
-//     );
-//   }
+  Future<Livro?> buscarLivroPorTitulo(String titulo) async {
+    final List<Map<String, dynamic>> result = await _db.query(
+      'livros',
+    where: 'titulo = ?',
+    whereArgs: [titulo],
+    limit: 1,
+    );
+    return result.isNotEmpty ? Livro.fromMap(result.first) : null;
+  }
 
-//   @override
-//   String get createLivroTable => '''
-//     CREATE TABLE IF NOT EXISTS $tableName (
-//       id INTEGER PRIMARY KEY NOT NULL,
-//       titulo TEXT NOT NULL,
-//       autor TEXT NOT NULL,
-//       anoPublicacao INTEGER,
-//       genero TEXT
-//     );
-//   ''';
+  @override
+  Future<void> delete(Livro livro) async {
+    await _db.delete(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [livro.id],
+    );
+  }
 
-//   @override
-//   String get deleteLivroTable => '''
-//     DROP TABLE IF EXISTS $tableName;
-//   ''';
-// }
+  @override
+  String get createLivroTable => '''
+    CREATE TABLE IF NOT EXISTS $tableName (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      titulo TEXT NOT NULL,
+      autor TEXT NOT NULL,
+      anoPublicacao INTEGER NOT NULL,
+      genero TEXT NOT NULL
+    );
+  ''';
+
+  @override
+  String get deleteLivroTable => '''
+    DROP TABLE IF EXISTS $tableName;
+  ''';
+}

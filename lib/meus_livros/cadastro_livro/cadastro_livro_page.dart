@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/meus_livros/cadastro_livro/cadastro_livro_page_controller.dart';
+import 'package:flutter_application_1/meus_livros/core/database/sqflite/DAO/livro_dao.dart';
+import 'package:flutter_application_1/meus_livros/core/repositories/livro_repository_api.dart';
+import 'package:flutter_application_1/meus_livros/core/repositories/livro_repository_bd.dart';
+import 'package:flutter_application_1/meus_livros/core/services/livros_service.dart';
+import 'package:flutter_application_1/meus_livros/lista_livros/lista_livros_page.dart';
 import 'package:flutter_application_1/widgets/app_loading_widget.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -59,6 +64,7 @@ class _CadastroLivroPageState extends State<CadastroLivroPage> {
                   width: 300,
                   child: TextFormField(
                     controller: _controller.tituloController,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Titulo',
                       border: OutlineInputBorder(
@@ -74,6 +80,7 @@ class _CadastroLivroPageState extends State<CadastroLivroPage> {
                   width: 300,
                   child: TextFormField(
                     controller: _controller.autorController,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Autor',
                       border: OutlineInputBorder(
@@ -89,6 +96,7 @@ class _CadastroLivroPageState extends State<CadastroLivroPage> {
                   width: 300,
                   child: TextFormField(
                     controller: _controller.anoPublicacaoController,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Ano de publicação',
                       border: OutlineInputBorder(
@@ -118,8 +126,20 @@ class _CadastroLivroPageState extends State<CadastroLivroPage> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (_formKey.currentState != null) {
-                        if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState != null &&
+                          _formKey.currentState!.validate()) {
+                        final livro = _controller.criarLivro();
+                       // await _controller.salvarLivro( );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text("Livro salvo com sucesso!")),
+                        );
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ListaLivroPage()),
+                        );
                       }
                     },
                     child: const Text('Salvar'),

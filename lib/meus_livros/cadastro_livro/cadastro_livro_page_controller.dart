@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/meus_livros/core/entities/livro.dart';
+import 'package:flutter_application_1/meus_livros/core/repositories/livro_repository_bd.dart';
 import 'package:mobx/mobx.dart';
 
 part 'cadastro_livro_page_controller.g.dart';
@@ -27,15 +29,20 @@ abstract class _CadastroLivroPageController with Store {
   String genero = '';
   TextEditingController generoController = TextEditingController();
 
- // ObservableList<String> listaGeneroSelecionado = ObservableList();
+  Livro criarLivro() {
+    return Livro(
+      titulo: titulo, 
+      autor: autor, 
+      anoPublicacao: int.parse(anoPublicacaoController.text), 
+      genero: genero);
+  }
 
-  List<String> listaGenero = [
-    'Fantasia',
-    'Romance',
-    'Didático',
-    'Fiçção',
-    'Biografia',  
-    ];
+  // @action
+  // Future<void> salvarLivro() async {
+  //  if (carregando) return;
+   
+  //  carregando = true;
+  // }
 
   @action
   void setTitulo(String valor) {
